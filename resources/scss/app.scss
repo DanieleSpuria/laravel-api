@@ -1,0 +1,43 @@
+@import '~bootstrap/scss/bootstrap';
+
+header {
+  background-color: #2B2A33;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+.ds-menu  {
+  height: calc(100vh - 56px);
+  width: 200px;
+  background-color: #2B2A33;
+
+  ul {
+    padding: 0;
+
+    li {
+      list-style: none;
+      cursor: pointer;
+
+      a {
+        color: white;
+      }
+    }
+  }
+}
+
+.ds-dash {
+  height: calc(100vh - 56px);
+  overflow: scroll;
+}
+
+.ck-editor__editable_inline {
+  min-height: 200px;
+}
+
+#prev-image {
+  display: none;
+}
+
