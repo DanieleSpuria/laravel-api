@@ -19,4 +19,6 @@ Route::namespace('Api')
         ->prefix('projects')
         ->group(function() {
           Route::get('/', [ProjectController::class, 'index']);
+          Route::get('/types', [ProjectController::class, 'types']);
+          Route::get('/technologies', [ProjectController::class, 'technologies']);
         });
