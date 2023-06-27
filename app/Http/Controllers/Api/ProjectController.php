@@ -24,4 +24,11 @@ class ProjectController extends Controller
     $types = Technology::all();
     return response()->json($types);
   }
+
+  public function types_technogies($id) {
+    $projects = Project::where('type_id', $id)
+                      ->with('type', 'technologies')
+                      ->paginate(20);
+    return response()->json($projects);
+  }
 }
