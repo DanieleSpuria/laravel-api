@@ -13,24 +13,28 @@ class ProjectController extends Controller
 {
   public function index() {
     $projects = Project::with('type', 'technologies')->paginate(20);
-    return response()->json($projects);
-  }
-
-  public function types() {
     $types = Type::all();
-    return response()->json($types);
+    $technologies = Technology::all();
+    return response()->json(compact('projects', 'types', 'technologies'));
   }
 
-  public function technologies() {
-    $types = Technology::all();
-    return response()->json($types);
-  }
+  // public function types() {
+  //   $types = Type::all();
+  //   return response()->json($types);
+  // }
+
+  // public function technologies() {
+  //   $technologies = Technology::all();
+  //   return response()->json($technologies);
+  // }
 
   public function getTypes($id) {
     $projects = Project::where('type_id', $id)
     ->with('type', 'technologies')
                       ->paginate(20);
-    return response()->json($projects);
+    $types = Type::all();
+    $technologies = Technology::all();
+    return response()->json(compact('projects', 'types', 'technologies'));
   }
 
   public function getTechnologies($id) {
@@ -39,6 +43,8 @@ class ProjectController extends Controller
     })
       ->with('type', 'technologies')
       ->paginate(20);
-    return response()->json($projects);
+    $types = Type::all();
+    $technologies = Technology::all();
+    return response()->json(compact('projects', 'types', 'technologies'));
   }
 }
