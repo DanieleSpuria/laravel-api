@@ -18,16 +18,6 @@ class ProjectController extends Controller
     return response()->json(compact('projects', 'types', 'technologies'));
   }
 
-  // public function types() {
-  //   $types = Type::all();
-  //   return response()->json($types);
-  // }
-
-  // public function technologies() {
-  //   $technologies = Technology::all();
-  //   return response()->json($technologies);
-  // }
-
   public function getTypes($id) {
     $projects = Project::where('type_id', $id)
     ->with('type', 'technologies')
@@ -41,8 +31,17 @@ class ProjectController extends Controller
     $projects = Project::whereHas('technologies', function(Builder $query) use($id) {
       $query->where('technology_id', $id);
     })
-      ->with('type', 'technologies')
-      ->paginate(20);
+                          ->with('type', 'technologies')
+                          ->paginate(20);
+    $types = Type::all();
+    $technologies = Technology::all();
+    return response()->json(compact('projects', 'types', 'technologies'));
+  }
+
+  public function getProject($slug) {
+    $projects = Project::where('slug', $slug)
+                        ->with('type', 'technologies')
+                        ->paginate(20);
     $types = Type::all();
     $technologies = Technology::all();
     return response()->json(compact('projects', 'types', 'technologies'));
