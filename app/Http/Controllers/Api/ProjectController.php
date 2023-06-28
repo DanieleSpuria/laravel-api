@@ -42,8 +42,6 @@ class ProjectController extends Controller
     $projects = Project::where('slug', $slug)
                         ->with('type', 'technologies')
                         ->paginate(20);
-    $types = Type::all();
-    $technologies = Technology::all();
-    return response()->json(compact('projects', 'types', 'technologies'));
+    return response()->json($projects);
   }
 }
