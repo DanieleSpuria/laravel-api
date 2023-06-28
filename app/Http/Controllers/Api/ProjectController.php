@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 use App\Models\Project;
 use App\Models\Technology;
 use App\Models\Type;
@@ -25,10 +26,19 @@ class ProjectController extends Controller
     return response()->json($types);
   }
 
-  public function types_technogies($id) {
+  public function getTypes($id) {
     $projects = Project::where('type_id', $id)
-                      ->with('type', 'technologies')
+    ->with('type', 'technologies')
                       ->paginate(20);
+    return response()->json($projects);
+  }
+
+  public function getTechnologies($id) {
+    $projects = Project::whereHas('technologies', function(Builder $query) use($id) {
+      $query->where('technology_id', $id);
+    })
+      ->with('type', 'technologies')
+      ->paginate(20);
     return response()->json($projects);
   }
 }
