@@ -41,7 +41,7 @@ class ProjectController extends Controller
   public function getProject($slug) {
     $projects = Project::where('slug', $slug)
                         ->with('type', 'technologies')
-                        ->paginate(20);
+                        ->first();
     return response()->json($projects);
   }
 }
