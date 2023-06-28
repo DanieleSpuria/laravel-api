@@ -42,6 +42,7 @@ class ProjectController extends Controller
     $projects = Project::where('slug', $slug)
                         ->with('type', 'technologies')
                         ->first();
+    if ($projects->image_path) $projects->image_path = asset('storage/' . $projects->image_path);
     return response()->json($projects);
   }
 }
